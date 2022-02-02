@@ -53,42 +53,53 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-            appBar: AppBar(
-              title: const Text('DatePicker demo'),
-            ),
-            body: Stack(
-              children: <Widget>[
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  top: 0,
-                  height: 80,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text('Selected date: $_selectedDate'),
-                      Text('Selected date count: $_dateCount'),
-                      Text('Selected range: $_range'),
-                      Text('Selected ranges count: $_rangeCount')
-                    ],
+      appBar: AppBar(
+        title: const Text('DatePicker demo'),
+      ),
+      body: SizedBox(
+        height: 200,
+        child: SfDateRangePicker(
+          onSelectionChanged: _onSelectionChanged,
+          selectionMode: DateRangePickerSelectionMode.single,
+          monthViewSettings: const DateRangePickerMonthViewSettings(
+              dayFormat: 'EEE',
+              firstDayOfWeek: 1,
+              showTrailingAndLeadingDates: true,
+              viewHeaderStyle: DateRangePickerViewHeaderStyle(
+                  textStyle: TextStyle(
+                color: Color(0xff5E5E5E),
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+              )),
+              numberOfWeeksInView: 1),
+          monthCellStyle: const DateRangePickerMonthCellStyle(
+              todayTextStyle: TextStyle(
+                color: Color(0xff5E5E5E),
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+              ),
+              todayCellDecoration: BoxDecoration(
+                color: Colors.transparent,
+                shape: BoxShape.rectangle,
+                border: Border(
+                  bottom: BorderSide(
+                    width: 3.0,
+                    color: Color(0xff3161F1),
                   ),
                 ),
-                Positioned(
-                  left: 0,
-                  top: 80,
-                  right: 0,
-                  bottom: 0,
-                  child: SfDateRangePicker(
-                    onSelectionChanged: _onSelectionChanged,
-                    selectionMode: DateRangePickerSelectionMode.range,
-                    initialSelectedRange: PickerDateRange(
-                        DateTime.now().subtract(const Duration(days: 4)),
-                        DateTime.now().add(const Duration(days: 3))),
-                  ),
-                )
-              ],
-            )));
+              ),
+              textStyle: TextStyle(
+                color: Color(0xff5E5E5E),
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+              ),
+              disabledDatesTextStyle: TextStyle(
+                color: Color(0xffC3C9D7),
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+              )),
+        ),
+      ),
+    ));
   }
 }
